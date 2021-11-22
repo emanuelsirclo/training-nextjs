@@ -1,9 +1,24 @@
+import { styled } from '@mui/material/styles';
 import { 
     Card,
-    Button
- } from 'react-bootstrap';
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
+    Box,
+    Paper,
+    Grid
+} from '@mui/material';
 
 import Link from 'next/link';
+
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 
 export async function getServerSideProps (){
@@ -19,27 +34,37 @@ export async function getServerSideProps (){
 
 const Category = ({categories}) => {
     return ( 
-        <div className="row my-2">
-            {
-                categories && 
-                categories.map(category => (
-                        <div className="col-lg-4 mb-4" key={category.idCategory}>
-                        <Card>
-                            <Card.Img variant="top" src={category.strCategoryThumb} />
-                            <Card.Body>
-                                <Card.Title>{category.strCategory}</Card.Title>
-                                <Card.Text className="text-elipsis">
-                                    {category.strCategoryDescription}
-                                </Card.Text>
-                                <Link href={`/category/${category.strCategory}`}>
-                                    <a className="btn btn-primary btn-block">Detail</a>
-                                </Link>
-                            </Card.Body>
-                        </Card>
-                        </div>
-                ))
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        {
+            categories && 
+            categories.map(category => (
+            <Grid item xs={4} key={category.idCategory}>
+                <Card sx={{ maxWidth: 345 }}>
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={category.strCategoryThumb}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                        {category.strCategory}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" className="text-elipsis">
+                        {category.strCategoryDescription}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Link href={`/category/${category.strCategory}`}>
+                            <a className="btn btn-primary btn-block">Detail</a>
+                        </Link>
+                    </CardActions>
+                </Card>
+            </Grid>
+            ))
             }
-        </div>
+      </Grid>
+    </Box>
      );
 }
  

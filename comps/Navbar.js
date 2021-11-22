@@ -7,7 +7,7 @@ import {
 
 const Navbar = () => {
     return ( 
-        <Navigation bg="light" expand="lg">
+        <Navigation bg="light" expand="lg" className="mb-4">
             <Container>
                 <Navigation.Brand href="/">Next Training</Navigation.Brand>
                 <Navigation.Toggle aria-controls="basic-navbar-nav" />
